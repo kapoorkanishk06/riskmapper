@@ -1,0 +1,17 @@
+services:
+  knowledge-risk-mapper:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      PORT: "8000"
+      DATABASE_URL: "sqlite:////data/knowledge_risk_mapper.db"
+      ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY:-}"
+    volumes:
+      - knowledge-risk-data:/data
+    restart: unless-stopped
+
+volumes:
+  knowledge-risk-data:
